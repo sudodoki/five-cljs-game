@@ -10,7 +10,7 @@
 (defonce rows (range number-rows))
 (defonce cols (range number-cols))
 
-(def moves
+(def moves-dummy
   [{:color "black" :column 1},
     {:color "red" :column 1},
     {:color "black" :column 1},
@@ -92,9 +92,15 @@
         [:div {:class "leg right"}]
         [:div {:class "leg left"}]])
 
+(defn toggle-turn
+    [value]
+    (if (= value black) red black))
 (defn board
   []
-  (let [moves (r/atom moves)
-        turn (r/atom "black")
-        on-toss #(println "something fell here" %&)]
-    (board-dumb (moves->state @moves) @turn on-toss)))    
+  (let [moves (r/atom moves-dummy)
+        current-turn (r/atom "black")
+        add-move (fn [idx]
+                    (swap! moves #(conj % {:column idx :color @current-turn}))
+                    (swap! current-turn toggle-turn))
+        on-toss (fn [idx] (add-move idx))]
+    #(board-dumb (moves->state @moves) @current-turn on-toss)))    
