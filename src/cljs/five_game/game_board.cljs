@@ -68,11 +68,14 @@
     (let [fall-count (empty-spot column)
           ref (atom nil)
           click-handler (fn []
-                         (.add (.-classList @ref) (str "fall-" fall-count))
+                         (.add (.-classList @ref) (str "fall-" (inc fall-count)))
                          (.add (.-classList @ref) "fall")
-                         (println @ref)
-                         (on-toss idx))]
-          
+                         (js/setTimeout
+                           (fn []
+                            (.remove (.-classList @ref) (str "fall-" (inc fall-count)))
+                            (.remove (.-classList @ref) "fall")
+                            (on-toss idx))
+                          1500))]
         [:div {:on-click click-handler
                :ref #(reset! ref %)
                :class (classname {"slot" true "filled" (filled? column)})
