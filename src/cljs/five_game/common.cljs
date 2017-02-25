@@ -9,4 +9,4 @@
 
 (def auth (fb/get-auth))
 
- 
+(def db (fb/get-db))

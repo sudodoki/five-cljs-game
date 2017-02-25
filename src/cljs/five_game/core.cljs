@@ -4,6 +4,7 @@
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
               [five-game.game-board :refer [board]]
+              [five-game.home :refer [home]]
               [five-game.common :as common]
               [five-game.auth :as auth]
               [firebase-cljs.core :as fb]
@@ -12,6 +13,9 @@
 ;; Views
 
 (defn home-page []
+  (home))
+
+(defn game-page []
   (board))
 
 (defn login-page []
@@ -30,6 +34,9 @@
 
 (secretary/defroute "/" []
   (session/put! :current-page #'home-page))
+
+(secretary/defroute "/game" []
+  (session/put! :current-page #'game-page))
 
 (secretary/defroute "/login" []
   (session/put! :current-page #'login-page))
