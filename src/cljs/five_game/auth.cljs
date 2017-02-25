@@ -8,6 +8,6 @@
 
 (defn login! [email password] (fbauth/login-userpass common/auth email password))
 (defn logout! [] (fbauth/logout common/auth))
-(defn signup! [email password] (fbauth/login-userpass common/auth email password))
+(defn signup! [email password] (fbauth/create-user common/auth email password))
 
  
