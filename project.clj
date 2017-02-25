@@ -13,12 +13,14 @@
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [yogthos/config "0.8"]
+                 [degree9/firebase-cljs "1.3.0"]
+                 [lein-git-deps "0.0.1-SNAPSHOT"]
                  [org.clojure/clojurescript "1.9.473"
                   :scope "provided"]
                  [secretary "1.2.3"]
                  [venantius/accountant "0.1.7"
                   :exclusions [org.clojure/tools.reader]]]
-
+  :git-dependencies [["https://github.com/Clojurous/matchbox.git"]]
   :plugins [[lein-environ "1.0.2"]
             [lein-cljsbuild "1.1.1"]
             [lein-asset-minifier "0.2.7"

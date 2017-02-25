@@ -30,6 +30,7 @@
 (defroutes routes
   (GET "/" [] (loading-page))
   (GET "/about" [] (loading-page))
+  (GET "/login" [] (loading-page))
   
   (resources "/")
   (not-found "Not Found"))
