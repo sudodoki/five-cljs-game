@@ -1,34 +1,105 @@
-.body-container {
-  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-top: 72px;
-  -webkit-font-smoothing: antialiased;
-  font-size: 1.125em;
-  color: #333;
-  line-height: 1.5em;
+* {
+  box-sizing: border-box;
+}
+.board {
+  margin: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+}
+.playground {
+  display: flex;
+  flex-direction: row;
+}
+.coin-tosser {
+  display: flex;
+  flex-direction: row;
+}
+.slot {
+  width: 36px;
+  height: 36px;
+  margin: 2px;
+  border-radius: 50%;
+}
+.red .slot:hover, .red .slot.fall {
+  background: #ec220a;  
+}
+.black .slot:hover, .black .slot.fall {
+  background: #332a2f;  
+}
+.slot.filled:hover {
+  background: transparent;
 }
 
-h1, h2, h3 {
-  color: #000;
+.slot.fall {
+  z-index: -1;
+  transition-property: transform;
+  transition-timing-function: ease-in;
 }
-h1 {
-  font-size: 2.5em
+.slot.fall-1  {
+  transition-duration: .5s;
+  transform: translate(0, 40px);
+}
+.slot.fall-2  {
+  transition-duration: .75s;
+  transform: translate(0, 80px);
+}
+.slot.fall-3  {
+  transition-duration: .85s;
+  transform: translate(0, 120px);
+}
+.slot.fall-4  {
+  transition-duration: 0.95s;
+  transform: translate(0, 160px);
+}
+.slot.fall-5  {
+  transition-duration: 1.10s;
+  transform: translate(0, 200px);
+}
+.slot.fall-6  {
+  transition-duration: 1.25s;
+  transform: translate(0, 240px);
+}
+.column {
+  display: flex;
+  flex-direction: column
 }
 
-h2 {
-  font-size: 2em
+.cell {
+  height: 40px;
+  width: 40px;
+  position: relative;
+  background: radial-gradient(circle at center, transparent 0%, transparent 60%, #fef700 60%);
+  z-index: 0;
 }
 
-h3 {
-  font-size: 1.5em
+.cell.red {
+  background: radial-gradient(circle at center, #ec220a 0%, #ec220a 60%, #fef700 60%);
+}
+.cell.black {
+  background: radial-gradient(circle at center, #332a2f 0%, #332a2f 60%, #fef700 60%);
 }
 
-a {
-  text-decoration: none;
-  color: #09f;
+.leg {
+  position: absolute;
+  background-color: #0083dd;
+  width: 5px;
+  height: 70%;
+  top: 50%;
+  left: -5px
 }
-
-a:hover {
-  text-decoration: underline;
+.leg.right {
+  left: initial;
+  right: -5px;
+}
+.leg:before {
+  content: "";
+  width: 5px;
+  height: 20px;
+  background-color: inherit;
+  position: absolute;
+  bottom: -10px;
+  left; 0;
+  transform: skew(-45deg);
 }
