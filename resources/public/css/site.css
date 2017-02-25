@@ -61,6 +61,10 @@
   transition-duration: 1.25s;
   transform: translate(0, 240px);
 }
+.slot.fall-7  {
+  transition-duration: 1.45s;
+  transform: translate(0, 280px);
+}
 .column {
   display: flex;
   flex-direction: column
