@@ -43,9 +43,14 @@
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
+(defn handle-login [] 
+  (session/put! :current-page #'home-page))
+
+(defn handle-logout [] (session/put! :current-page #'login-page))
+
 (auth/auth-changed
     common/auth
-    #(if % (auth/handle-login) (auth/handle-logout)))
+    #(if % (handle-login) (handle-logout)))
 
 (defn init! []
   (accountant/configure-navigation!
