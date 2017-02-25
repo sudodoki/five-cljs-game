@@ -13,6 +13,7 @@
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [yogthos/config "0.8"]
+                 [degree9/firebase-cljs "1.3.0"]
                  [org.clojure/clojurescript "1.9.473"
                   :scope "provided"]
                  [secretary "1.2.3"]
