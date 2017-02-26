@@ -24,8 +24,8 @@
 (defn get-current-user-uid [] (.-uid (fbauth/current-user auth)))
 ; DATABASE
 (defn reset-state-fn [state] #(reset! state (fb->clj %)))
-(defn listen-val [korks fn] 
-  (fbdb/listen (get-ref [:games]) korks "value" fn))
+(defn listen-val [korks f] 
+  (fbdb/listen (get-ref [:games]) korks "value" f))
 
 (defn create-game! [name] 
   (.-key (fbdb/conj! (get-ref [:games]) {:players { :player1 (get-current-user-uid) } :moves [] :current-turn "black"})))
