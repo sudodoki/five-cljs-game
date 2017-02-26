@@ -12,6 +12,7 @@
 (defonce rows (range number-rows))
 (defonce cols (range number-cols))
 (defonce animation-timeout 1005)
+(defonce player-color-mapping {black :player1 red :player2})
 
 ; UTILS
 (defn last-index-of [col element]
@@ -21,6 +22,11 @@
         (if (= indexof -1)
             -1
             (- length 1 indexof))))
+
+; STATE
+(defonce moves (r/atom []))
+(defonce current-turn (r/atom black))
+(defonce players (r/atom {}))
 
 ; GAME LOGIC 
 (def noop #())
@@ -105,6 +111,12 @@
         (let [state (moves->state @moves)]
             (some true? (for [x cols y rows] (has-4-connected? state x y color))))))
 
+(defn current-users-turn? [current-turn players]
+  (let [player-key (get player-color-mapping current-turn)]
+    (and
+      (= (player-key players) (fb/get-current-user-email))
+      (= 2 (-> players vals count)))))
+
 ; Presentational
 (defn classname
     [classes]
@@ -146,20 +158,31 @@
             {:class (classname {"status" true "red" red-won? "black" black-won?})}
             (if red-won? "Red" "Black") " wins! :)"]))
 
-(defn board-dumb [{:keys [columns current-turn on-toss game-ended]}]
+(defn waiting-for-player-title [{:keys [player2]}]
+  (when (nil? player2)
+    [:h2 "Waiting for players to join..."]))
+
+(defn info-panel [game-id players]
+  [:div {:class "info-panel"}
+    [:div "Game ID: "
+      [:span {:class "bold"} game-id]] 
+    [:div "Player 1: "
+      [:span {:class "bold"} (:player1 players)]]
+    [:div "Player 2: "
+      [:span {:class "bold"} (:player2 players)]]])
+
+(defn board-dumb [{:keys [columns current-turn players on-toss game-ended]}]
     [:div {:class "board"}
         [:div
-            {:class (classname {"coin-tosser" true current-turn true "block" game-ended})}
+            {:class (classname {"coin-tosser" true 
+                                current-turn true 
+                                "block" (or game-ended (not (current-users-turn? current-turn players)))})}
             (map-indexed (partial coin-slot on-toss) columns)]
         [:div
             {:class "playground"}
             (map-indexed get-column-markup columns)]      
         [:div {:class "leg right"}]
         [:div {:class "leg left"}]])
-; state
-(defonce moves (r/atom []))
-(defonce current-turn (r/atom black))
-(defonce players (r/atom {}))
 
 (defn board
   [game-id]
@@ -167,17 +190,22 @@
                     (fb/update-moves! game-id (conj @moves {:column idx :color @current-turn}))
                     (fb/update-current-turn game-id (toggle-turn @current-turn)))
         on-toss (fn [idx] (add-move idx))]
+        
     (fb/listen-moves game-id moves)
     (fb/listen-current-turn game-id current-turn)
     (fb/listen-players game-id players)
     (fn []
         (let [red-won (has-won? moves red)
               black-won (has-won? moves black)
-              game-ended (or red-won black-won)]
-            [:div (str game-id)
+              game-ended (or red-won black-won)
+              players @players]
+            [:div
+                [waiting-for-player-title players]
                 [status red-won black-won]
+                [info-panel game-id players]
                 [board-dumb {:columns (moves->state @moves)
                               :current-turn @current-turn
+                              :players players
                               :on-toss on-toss
                               :game-ended game-ended}]]))))    
 

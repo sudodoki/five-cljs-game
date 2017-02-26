@@ -21,14 +21,17 @@
 (defn login! [email password] (fbauth/login-userpass auth email password))
 (defn logout! [] (fbauth/logout auth))
 (defn signup! [email password] (fbauth/create-user auth email password))
-(defn get-current-user-uid [] (.-uid (fbauth/current-user auth)))
+(defn get-current-user [] (fbauth/current-user auth))
+(defn get-current-user-email [] (.-email (get-current-user)))
 ; DATABASE
 (defn reset-state-fn [state] #(reset! state (fb->clj %)))
 (defn listen-val [korks f] 
   (fbdb/listen (get-ref [:games]) korks "value" f))
 
-(defn create-game! [name] 
-  (.-key (fbdb/conj! (get-ref [:games]) {:players { :player1 (get-current-user-uid) } :moves [] :current-turn "black"})))
+(defn create-game! [name]
+  (.-key (fbdb/conj! (get-ref [:games]) {:players {:player1 (get-current-user-email)} 
+                                         :moves [] 
+                                         :current-turn "black"})))
 (defn update-player2 [game-id current-user] 
   (fbdb/reset! (get-ref [:games game-id :players :player2]) current-user))
 (defn update-moves! [game-id moves]
@@ -42,9 +45,12 @@
 (defn listen-current-turn [game-id state]
   (listen-val [game-id :current-turn] (reset-state-fn state)))
 (defn listen-players [game-id state]
-  (listen-val [game-id :current-turn] (fn [new-players]
-                                        (let [current-user (get-current-user-uid)]
-                                          (if (and (nil? (:player2 new-players)) (not= current-user (:player1 new-players)))
-                                            (update-player2 game-id current-user)
-                                            ((reset-state-fn state) new-players))))))
+  (listen-val [game-id :players] (fn [new-players]
+                                   (let [current-user (get-current-user-email)
+                                         clj-new-players (fb->clj new-players)
+                                         player1 (:player1 clj-new-players)
+                                         player2 (:player2 clj-new-players)]
+                                     (if (and (nil? player2) (not= current-user player1))
+                                       (update-player2 game-id current-user)
+                                       ((reset-state-fn state) new-players))))))
 
