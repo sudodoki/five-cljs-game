@@ -1,5 +1,6 @@
 (ns five-game.game-board
-    (:require [reagent.core :as r]))
+    (:require [reagent.core :as r]
+              [five-game.firebase :as fb]))
 
 ; COMMON CONSTANTS
 (defonce red "red")
@@ -155,21 +156,25 @@
             (map-indexed get-column-markup columns)]      
         [:div {:class "leg right"}]
         [:div {:class "leg left"}]])
-
+; state
 (defonce moves (r/atom []))
+(defonce current-turn (r/atom black))
+(defonce players (r/atom {}))
+
 (defn board
-  []
-  (let [
-        current-turn (r/atom "black")
-        add-move (fn [idx]
-                    (swap! moves #(conj % {:column idx :color @current-turn}))
-                    (swap! current-turn toggle-turn))
+  [game-id]
+  (let [add-move (fn [idx]
+                    (fb/update-moves! game-id (conj @moves {:column idx :color @current-turn}))
+                    (fb/update-current-turn game-id (toggle-turn @current-turn)))
         on-toss (fn [idx] (add-move idx))]
+    (fb/listen-moves game-id moves)
+    (fb/listen-current-turn game-id current-turn)
+    (fb/listen-players game-id players)
     (fn []
         (let [red-won (has-won? moves red)
               black-won (has-won? moves black)
               game-ended (or red-won black-won)]
-            [:div
+            [:div (str game-id)
                 [status red-won black-won]
                 [board-dumb {:columns (moves->state @moves)
                               :current-turn @current-turn

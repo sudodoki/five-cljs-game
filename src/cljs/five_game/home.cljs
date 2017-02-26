@@ -1,9 +1,11 @@
 (ns five-game.home
-  (:require [firebase-cljs.database :as fbd]
-            [five-game.common :as common]))
+  (:require [five-game.firebase :as fb]
+            [secretary.core :as secretary :include-macros true]))
 
 (defn create-new-game []
-  (fbd/merge! common/db {:moves []} (fn [e] js/console.log e)))
+  (let [new-game-id (fb/create-game! "new room")]
+    (secretary/dispatch! (str "/games/" new-game-id))))
+
 
 (defn home []
   [:button {:on-click create-new-game} "Create New Game"])

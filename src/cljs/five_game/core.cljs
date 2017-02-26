@@ -5,9 +5,7 @@
               [accountant.core :as accountant]
               [five-game.game-board :refer [board]]
               [five-game.home :refer [home]]
-              [five-game.common :as common]
-              [five-game.auth :as auth]
-              [firebase-cljs.core :as fb]
+              [five-game.firebase :as fb]
               [five-game.login :refer [login]]))
 ;; -------------------------
 ;; Views
@@ -15,8 +13,8 @@
 (defn home-page []
   (home))
 
-(defn game-page []
-  (board))
+(defn game-page [id]
+  (board id))
 
 (defn login-page []
   (login))
@@ -38,6 +36,9 @@
 (secretary/defroute "/game" []
   (session/put! :current-page #'game-page))
 
+(secretary/defroute "/games/:id" [id]
+  (session/put! :current-page (#'game-page id)))
+
 (secretary/defroute "/login" []
   (session/put! :current-page #'login-page))
 
@@ -55,8 +56,8 @@
 
 (defn handle-logout [] (session/put! :current-page #'login-page))
 
-(auth/auth-changed
-    common/auth
+(fb/auth-changed
+    fb/auth
     #(if % (handle-login) (handle-logout)))
 
 (defn init! []
