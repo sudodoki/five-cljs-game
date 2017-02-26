@@ -22,11 +22,20 @@
   margin: 2px;
   border-radius: 50%;
 }
+.block .slot:hover {
+  background: transparent;
+}
 .red .slot:hover, .red .slot.fall {
   background: #ec220a;  
 }
 .black .slot:hover, .black .slot.fall {
   background: #332a2f;  
+}
+.block .slot {
+  pointer-events: none;
+}
+.slot.filled {
+  pointer-events: none;
 }
 .slot.filled:hover {
   background: transparent;
@@ -38,31 +47,31 @@
   transition-timing-function: ease-in;
 }
 .slot.fall-1  {
-  transition-duration: .5s;
+  transition-duration: .15s;
   transform: translate(0, 40px);
 }
 .slot.fall-2  {
-  transition-duration: .75s;
+  transition-duration: .30s;
   transform: translate(0, 80px);
 }
 .slot.fall-3  {
-  transition-duration: .85s;
+  transition-duration: .45s;
   transform: translate(0, 120px);
 }
 .slot.fall-4  {
-  transition-duration: 0.95s;
+  transition-duration: 0.60s;
   transform: translate(0, 160px);
 }
 .slot.fall-5  {
-  transition-duration: 1.10s;
+  transition-duration: 0.75s;
   transform: translate(0, 200px);
 }
 .slot.fall-6  {
-  transition-duration: 1.25s;
+  transition-duration: 0.9s;
   transform: translate(0, 240px);
 }
 .slot.fall-7  {
-  transition-duration: 1.45s;
+  transition-duration: 1.05s;
   transform: translate(0, 280px);
 }
 .column {
@@ -106,4 +115,11 @@
   bottom: -10px;
   left; 0;
   transform: skew(-45deg);
+}
+.status.red {
+  color: #ec220a;  
+
+}
+.status.black {
+  color: #332a2f;  
 }
