@@ -10,7 +10,7 @@
 (defonce number-cols 7)
 (defonce rows (range number-rows))
 (defonce cols (range number-cols))
-(defonce animation-timeout 1500)
+(defonce animation-timeout 1005)
 
 ; UTILS
 (defn last-index-of [col element]
