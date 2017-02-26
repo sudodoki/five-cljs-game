@@ -22,11 +22,20 @@
   margin: 2px;
   border-radius: 50%;
 }
+.block .slot:hover {
+  background: transparent;
+}
 .red .slot:hover, .red .slot.fall {
   background: #ec220a;  
 }
 .black .slot:hover, .black .slot.fall {
   background: #332a2f;  
+}
+.block .slot {
+  pointer-events: none;
+}
+.slot.filled {
+  pointer-events: none;
 }
 .slot.filled:hover {
   background: transparent;
@@ -106,4 +115,11 @@
   bottom: -10px;
   left; 0;
   transform: skew(-45deg);
+}
+.status.red {
+  color: #ec220a;  
+
+}
+.status.black {
+  color: #332a2f;  
 }
