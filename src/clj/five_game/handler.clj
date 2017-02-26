@@ -29,7 +29,7 @@
 
 (defroutes routes
   (GET "/" [] (loading-page))
-  (GET "/game" [] (loading-page))
+  (GET "/games/:id" [] (loading-page))
   (GET "/about" [] (loading-page))
   (GET "/login" [] (loading-page))
   

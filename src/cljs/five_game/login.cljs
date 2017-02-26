@@ -1,19 +1,16 @@
 (ns five-game.login
-  (:require [five-game.common :as common]
-            [five-game.auth :as auth]
-            [firebase-cljs.auth :as fbauth]
-            [firebase-cljs.core :as fb]
+  (:require [five-game.firebase :as fb]
             [reagent.core :as r]))
 
 (defn on-login [email password]
   (.catch
-    (auth/login! email password)
+    (fb/login! email password)
     (fn [err]
      (js/alert err))))    
 
 (defn on-signup [email password]
   (.catch
-    (auth/signup! email password)
+    (fb/signup! email password)
     (fn [err]
      (js/alert err))))
 
