@@ -39,11 +39,10 @@
 (defn update-current-turn [game-id turn]
   (fbdb/reset! (get-ref [:games game-id :current-turn]) turn))
 
+(defn listen-to [game-id what cb]
+  (listen-val [game-id what] #(cb (fb->clj %))))
 
-(defn listen-moves [game-id state]
-  (listen-val [game-id :moves] (reset-state-fn state)))
-(defn listen-current-turn [game-id state]
-  (listen-val [game-id :current-turn] (reset-state-fn state)))
+; TODO: move to game as well?
 (defn listen-players [game-id state]
   (listen-val [game-id :players] (fn [new-players]
                                    (let [current-user (get-current-user-email)
