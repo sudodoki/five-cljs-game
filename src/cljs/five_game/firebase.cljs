@@ -24,32 +24,15 @@
 (defn get-current-user [] (fbauth/current-user auth))
 (defn get-current-user-email [] (.-email (get-current-user)))
 ; DATABASE
-(defn reset-state-fn [state] #(reset! state (fb->clj %)))
 (defn listen-val [korks f] 
   (fbdb/listen (get-ref [:games]) korks "value" f))
-
 (defn create-game! [name]
   (.-key (fbdb/conj! (get-ref [:games]) {:players {:player1 (get-current-user-email)} 
                                          :moves [] 
-                                         :current-turn "black"})))
-(defn update-player2 [game-id current-user] 
-  (fbdb/reset! (get-ref [:games game-id :players :player2]) current-user))
-(defn update-moves! [game-id moves]
-  (fbdb/reset! (get-ref [:games game-id :moves]) moves))
-(defn update-current-turn [game-id turn]
-  (fbdb/reset! (get-ref [:games game-id :current-turn]) turn))
-
+                                         :current-turn "black"
+                                         :previous-game-turn "red"})))
+(defn update-entity! [entity-ref entity]
+  (fbdb/reset! (get-ref entity-ref) entity))
 (defn listen-to [game-id what cb]
   (listen-val [game-id what] #(cb (fb->clj %))))
-
-; TODO: move to game as well?
-(defn listen-players [game-id state]
-  (listen-val [game-id :players] (fn [new-players]
-                                   (let [current-user (get-current-user-email)
-                                         clj-new-players (fb->clj new-players)
-                                         player1 (:player1 clj-new-players)
-                                         player2 (:player2 clj-new-players)]
-                                     (if (and (nil? player2) (not= current-user player1))
-                                       (update-player2 game-id current-user)
-                                       ((reset-state-fn state) new-players))))))
 

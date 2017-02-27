@@ -1,5 +1,6 @@
 (ns five-game.game-board
     (:require [reagent.core :as r]
+              [secretary.core :as secretary :include-macros true]
               [five-game.firebase :as fb]))
 
 ; COMMON CONSTANTS
@@ -26,6 +27,7 @@
 ; STATE
 (defonce moves (r/atom []))
 (defonce current-turn (r/atom black))
+(defonce previous-game-turn (r/atom red))
 (defonce players (r/atom {}))
 
 ; GAME LOGIC 
@@ -117,6 +119,13 @@
       (= (player-key players) (fb/get-current-user-email))
       (= 2 (-> players vals count)))))
 
+(defn update-player2 [game-id new-players]
+  (let [current-user (fb/get-current-user-email)
+        player1 (:player1 new-players)
+        player2 (:player2 new-players)]
+    (when (and (nil? player2) (not= current-user player1))
+      (fb/update-entity! [:games game-id :players :player2] current-user))))
+
 ; Presentational
 (defn classname
     [classes]
@@ -163,6 +172,16 @@
             {:class (classname {"status" true "red" red-won? "black" black-won?})}
             (if red-won? "Red" "Black") " wins! :)"]))
 
+(defn finish-game-panel [game-ended game-id]
+  (when game-ended
+    (let [previous-game-turn @previous-game-turn]
+      [:div
+       [:button {:on-click #(do 
+                              (fb/update-entity! [:games game-id :moves] [])
+                              (fb/update-entity! [:games game-id :previous-game-turn] (toggle-turn previous-game-turn))
+                              (fb/update-entity! [:games game-id :current-turn] previous-game-turn))} "Reset Game"]
+       [:button {:on-click #(secretary/dispatch! "/")} "Back to main menu"]])))
+
 (defn waiting-for-player-title [{:keys [player2]}]
   (when (nil? player2)
     [:h2 "Waiting for players to join..."]))
@@ -198,13 +217,15 @@
 (defn board
   [game-id]
   (let [add-move (fn [idx]
-                    (fb/update-moves! game-id (conj @moves {:column idx :color @current-turn}))
-                    (fb/update-current-turn game-id (toggle-turn @current-turn)))
+                    (fb/update-entity! [:games game-id :moves] (conj @moves {:column idx :color @current-turn}))
+                    (fb/update-entity! [:games game-id :current-turn] (toggle-turn @current-turn)))
         on-toss (fn [idx] (add-move idx))]
         
     (fb/listen-to game-id :moves #(reset! moves %))
     (fb/listen-to game-id :current-turn #(reset! current-turn %))
-    (fb/listen-players game-id players)
+    (fb/listen-to game-id :previous-game-turn #(reset! previous-game-turn %))
+    (fb/listen-to game-id :players #(reset! players %))
+    (fb/listen-to game-id :players (partial update-player2 game-id))
     (fn []
         (let [red-won (has-won? moves red)
               black-won (has-won? moves black)
@@ -213,6 +234,7 @@
             [:div
                 [waiting-for-player-title players]
                 [status red-won black-won]
+                [finish-game-panel game-ended game-id]
                 [info-panel game-id players]
                 [board-dumb {:columns (moves->state @moves)
                               :current-turn @current-turn
