@@ -83,15 +83,16 @@
   height: 40px;
   width: 40px;
   position: relative;
-  background: radial-gradient(circle at center, transparent 0%, transparent 60%, #fef700 60%);
+  background: radial-gradient(circle at center, transparent 0%, transparent 59%, #fef700 62%);
   z-index: 0;
 }
 
+
 .cell.red {
-  background: radial-gradient(circle at center, #ec220a 0%, #ec220a 60%, #fef700 60%);
+  background: radial-gradient(circle at center, #ec220a 0%, #ec220a 58%, #fef700 62%);
 }
 .cell.black {
-  background: radial-gradient(circle at center, #332a2f 0%, #332a2f 60%, #fef700 60%);
+  background: radial-gradient(circle at center, #332a2f 0%, #332a2f 58%, #fef700 62%)
 }
 
 .leg {

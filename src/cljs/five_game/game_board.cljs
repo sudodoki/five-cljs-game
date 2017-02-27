@@ -131,24 +131,29 @@
     [idx column]
     [:div {:class "column" :key idx} (map-indexed get-cell column)])
 
+(def slots (atom []))
+(defn animate-slot
+    [idx column cb]
+    (let [fall-count (empty-spot column)
+          ref (nth @slots idx)]
+        (.add (.-classList (.-parentNode ref)) "block")
+        (.add (.-classList ref) (str "fall-" (inc fall-count)))
+        (.add (.-classList ref) "fall")
+        (js/setTimeout
+            (fn []
+                (.remove (.-classList (.-parentNode ref)) "block")
+                (.remove (.-classList ref) (str "fall-" (inc fall-count)))
+                (.remove (.-classList ref) "fall")
+                (cb idx)) 
+            animation-timeout)))
+
 (defn coin-slot
     [on-toss idx column]
     (let [fall-count (empty-spot column)
           ref (atom nil)
-          click-handler
-          (fn []
-            (.add (.-classList (.-parentNode @ref)) "block")
-            (.add (.-classList @ref) (str "fall-" (inc fall-count)))
-            (.add (.-classList @ref) "fall")
-            (js/setTimeout
-                (fn []
-                 (.remove (.-classList (.-parentNode @ref)) "block")
-                 (.remove (.-classList @ref) (str "fall-" (inc fall-count)))
-                 (.remove (.-classList @ref) "fall")
-                 (on-toss idx)) 
-             animation-timeout))]
+          click-handler #(animate-slot idx column on-toss)]
         [:div {:on-click (if (filled? column) noop click-handler)
-               :ref #(reset! ref %)
+               :ref (fn [ref] (swap! slots #(assoc % idx ref)))
                :class (classname {"slot" true "filled" (filled? column)})
                :key idx}]))
 
@@ -184,6 +189,12 @@
         [:div {:class "leg right"}]
         [:div {:class "leg left"}]])
 
+; TODO: animate slot of move added here
+; (fn add-moves
+;     [new-moves]
+;     (let [adding (last new-moves)]
+;         (animate-slot)))
+
 (defn board
   [game-id]
   (let [add-move (fn [idx]
@@ -191,8 +202,8 @@
                     (fb/update-current-turn game-id (toggle-turn @current-turn)))
         on-toss (fn [idx] (add-move idx))]
         
-    (fb/listen-moves game-id moves)
-    (fb/listen-current-turn game-id current-turn)
+    (fb/listen-to game-id :moves #(reset! moves %))
+    (fb/listen-to game-id :current-turn #(reset! current-turn %))
     (fb/listen-players game-id players)
     (fn []
         (let [red-won (has-won? moves red)
