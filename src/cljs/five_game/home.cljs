@@ -4,7 +4,9 @@
             [reagent.core :as r]))
 
 (defn go-to-game [game-key] (secretary/dispatch! (str "/games/" game-key)))
-(defn go-to-login [] (secretary/dispatch! "/login"))
+(defn go-to-login []
+  (secretary/dispatch! "/login")
+  nil)
 
 (defn create-new-game []
   (let [new-game-id (fb/create-game! "new room")]
