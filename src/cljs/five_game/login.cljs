@@ -1,18 +1,19 @@
 (ns five-game.login
   (:require [five-game.firebase :as fb]
+            [secretary.core :as secretary :include-macros true]
             [reagent.core :as r]))
 
 (defn on-login [email password]
-  (.catch
+  (.then
     (fb/login! email password)
-    (fn [err]
-     (js/alert err))))    
+    #(secretary/dispatch! "/")
+    #(js/alert %)))    
 
 (defn on-signup [email password]
-  (.catch
+  (.then
     (fb/signup! email password)
-    (fn [err]
-     (js/alert err))))
+    #(secretary/dispatch! "/")
+    #(js/alert %)))
 
 (defn sign-in-form []
   (let [email (r/atom "")

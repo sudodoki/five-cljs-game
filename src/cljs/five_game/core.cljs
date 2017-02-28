@@ -51,14 +51,10 @@
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
-(defn handle-login [] 
-  (session/put! :current-page #'home-page))
-
-(defn handle-logout [] (session/put! :current-page #'login-page))
-
-(fb/auth-changed
+(defn on-auth-change-handler []
+  (fb/auth-changed
     fb/auth
-    #(if % (handle-login) (handle-logout)))
+    #(if-not % (secretary/dispatch! "/login"))))
 
 (defn init! []
   (accountant/configure-navigation!
@@ -69,4 +65,5 @@
      (fn [path]
        (secretary/locate-route path))})
   (accountant/dispatch-current!)
+  (on-auth-change-handler)
   (mount-root))
