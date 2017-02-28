@@ -4,9 +4,6 @@
             [reagent.core :as r]))
 
 (defn go-to-game [game-key] (secretary/dispatch! (str "/games/" game-key)))
-(defn go-to-login []
-  (secretary/dispatch! "/login")
-  nil)
 
 (defn create-new-game []
   (let [new-game-id (fb/create-game! "new room")]
@@ -25,11 +22,9 @@
       [:button {:type "submit"} "Join"]]))
 
 (defn home []
-  (if-not (fb/get-current-user)
-    (go-to-login)
-    [:div
-     [:h1 {:class "-text-center"} "Five Game"]
-     [:div {:class "-text-center"}
-       [:button {:class "button" :on-click create-new-game} "Create New Game"]
-       [:h4 "or"]
-       (new-game-form)]])) 
+  [:div
+   [:h1 {:class "-text-center"} "Five Game"]
+   [:div {:class "-text-center"}
+     [:button {:class "button" :on-click create-new-game} "Create New Game"]
+     [:h4 "or"]
+     (new-game-form)]]) 
