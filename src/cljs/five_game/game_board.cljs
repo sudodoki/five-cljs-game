@@ -116,8 +116,8 @@
 (defn current-users-turn? [current-turn players]
   (let [player-key (get player-color-mapping current-turn)]
     (and
-      (= (player-key players) (fb/get-current-user-email))
-      (= 2 (-> players vals count)))))
+      (= 2 (-> players vals count))
+      (= (player-key players) (fb/get-current-user-email)))))
 
 (defn update-player2 [game-id new-players]
   (let [current-user (fb/get-current-user-email)
@@ -133,7 +133,7 @@
 
 (defn get-cell
     [idx color]
-    (let [class (classname {"cell" true color true})]
+    (let [class (classname {"cell" true color true (str "fall-" idx) (not= color none)})]
         [:div {:class class :key idx}]))
 
 (defn get-column-markup 
@@ -141,26 +141,12 @@
     [:div {:class "column" :key idx} (map-indexed get-cell column)])
 
 (def slots (atom []))
-(defn animate-slot
-    [idx column cb]
-    (let [fall-count (empty-spot column)
-          ref (nth @slots idx)]
-        (.add (.-classList (.-parentNode ref)) "block")
-        (.add (.-classList ref) (str "fall-" (inc fall-count)))
-        (.add (.-classList ref) "fall")
-        (js/setTimeout
-            (fn []
-                (.remove (.-classList (.-parentNode ref)) "block")
-                (.remove (.-classList ref) (str "fall-" (inc fall-count)))
-                (.remove (.-classList ref) "fall")
-                (cb idx)) 
-            animation-timeout)))
 
 (defn coin-slot
     [on-toss idx column]
     (let [fall-count (empty-spot column)
           ref (atom nil)
-          click-handler #(animate-slot idx column on-toss)]
+          click-handler #(on-toss idx)]
         [:div {:on-click (if (filled? column) noop click-handler)
                :ref (fn [ref] (swap! slots #(assoc % idx ref)))
                :class (classname {"slot" true "filled" (filled? column)})
@@ -182,9 +168,11 @@
                               (fb/update-entity! [:games game-id :current-turn] previous-game-turn))} "Reset Game"]
        [:button {:on-click #(secretary/dispatch! "/")} "Back to main menu"]])))
 
-(defn waiting-for-player-title [{:keys [player2]}]
-  (when (nil? player2)
-    [:h2 "Waiting for players to join..."]))
+(defn turn-indicator [{:keys [player2] :as players} current-turn]
+  (println "current-turn" current-turn " players" players)
+  (if (nil? player2)
+    [:h2 "Waiting for players to join..."]
+    [:h2 (if (current-users-turn? current-turn players) "Your turn" "Your opponent's turn")]))
 
 (defn info-panel [game-id players]
   [:div {:class "info-panel"}
@@ -202,17 +190,11 @@
                                 current-turn true 
                                 "block" (or game-ended (not (current-users-turn? current-turn players)))})}
             (map-indexed (partial coin-slot on-toss) columns)]
-        [:div
-            {:class "playground"}
+        [:div.playground
+            [:div.grid]
             (map-indexed get-column-markup columns)]      
-        [:div {:class "leg right"}]
-        [:div {:class "leg left"}]])
-
-; TODO: animate slot of move added here
-; (fn add-moves
-;     [new-moves]
-;     (let [adding (last new-moves)]
-;         (animate-slot)))
+        [:div.leg.right]
+        [:div.leg.left]])
 
 (defn board
   [game-id]
@@ -232,7 +214,7 @@
               game-ended (or red-won black-won)
               players @players]
             [:div
-                [waiting-for-player-title players]
+                [turn-indicator players @current-turn]
                 [status red-won black-won]
                 [finish-game-panel game-ended game-id]
                 [info-panel game-id players]
