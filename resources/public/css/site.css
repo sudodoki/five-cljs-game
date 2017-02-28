@@ -11,6 +11,18 @@
 .playground {
   display: flex;
   flex-direction: row;
+  position: relative;
+}
+.grid {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at center, transparent 0%, transparent 59%, #fef700 62%);
+  background-size: 40px 40px;
+  background-repeat: repeat;
 }
 .coin-tosser {
   display: flex;
@@ -41,39 +53,6 @@
   background: transparent;
 }
 
-.slot.fall {
-  z-index: -1;
-  transition-property: transform;
-  transition-timing-function: ease-in;
-}
-.slot.fall-1  {
-  transition-duration: .15s;
-  transform: translate(0, 40px);
-}
-.slot.fall-2  {
-  transition-duration: .30s;
-  transform: translate(0, 80px);
-}
-.slot.fall-3  {
-  transition-duration: .45s;
-  transform: translate(0, 120px);
-}
-.slot.fall-4  {
-  transition-duration: 0.60s;
-  transform: translate(0, 160px);
-}
-.slot.fall-5  {
-  transition-duration: 0.75s;
-  transform: translate(0, 200px);
-}
-.slot.fall-6  {
-  transition-duration: 0.9s;
-  transform: translate(0, 240px);
-}
-.slot.fall-7  {
-  transition-duration: 1.05s;
-  transform: translate(0, 280px);
-}
 .column {
   display: flex;
   flex-direction: column
@@ -83,16 +62,14 @@
   height: 40px;
   width: 40px;
   position: relative;
-  background: radial-gradient(circle at center, transparent 0%, transparent 59%, #fef700 62%);
-  z-index: 0;
+  border-radius: 50%;
 }
-
 
 .cell.red {
-  background: radial-gradient(circle at center, #ec220a 0%, #ec220a 58%, #fef700 62%);
+  background-color: #ec220a;
 }
 .cell.black {
-  background: radial-gradient(circle at center, #332a2f 0%, #332a2f 58%, #fef700 62%)
+  background-color: #332a2f;
 }
 
 .leg {
@@ -103,10 +80,12 @@
   top: 50%;
   left: -5px
 }
+
 .leg.right {
   left: initial;
   right: -5px;
 }
+
 .leg:before {
   content: "";
   width: 5px;
@@ -117,10 +96,11 @@
   left; 0;
   transform: skew(-45deg);
 }
+
 .status.red {
   color: #ec220a;  
-
 }
+
 .status.black {
   color: #332a2f;  
 }
@@ -136,6 +116,63 @@
   top: 10px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
 }
+
 .bold {
   font-weight: bold;
+}
+
+.fall-0 {
+    animation-name: fall-0;
+    animation-iteration-count: 1;
+    animation-duration: .15s;
+}
+.fall-1 {
+    animation-name: fall-1;
+    animation-iteration-count: 1;
+    animation-duration: .30s;
+}
+.fall-2 {
+    animation-name: fall-2;
+    animation-iteration-count: 1;
+    animation-duration: .45s;
+}
+.fall-3 {
+    animation-name: fall-3;
+    animation-iteration-count: 1;
+    animation-duration: 0.60s;
+}
+.fall-4 {
+    animation-name: fall-4;
+    animation-iteration-count: 1;
+    animation-duration: 0.75s;
+}
+.fall-5 {
+    animation-name: fall-5;
+    animation-iteration-count: 1;
+    animation-duration: 0.9s;
+}
+
+@keyframes fall-0  {
+  0% { transform: translate(0, -40px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fall-1  {
+  0% { transform: translate(0, -80px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fall-2  {
+  0% { transform: translate(0, -120px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fall-3  {
+  0% { transform: translate(0, -160px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fall-4  {
+  0% { transform: translate(0, -100px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes fall-5  {
+  0% { transform: translate(0, -240px); }
+  100% { transform: translate(0, 0); }
 }
