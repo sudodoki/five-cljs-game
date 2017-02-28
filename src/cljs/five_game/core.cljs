@@ -51,7 +51,7 @@
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
-(defn on-auth-change-handler []
+(defn add-auth-change-handler []
   (fb/auth-changed
     fb/auth
     #(if-not % (secretary/dispatch! "/login"))))
@@ -65,5 +65,5 @@
      (fn [path]
        (secretary/locate-route path))})
   (accountant/dispatch-current!)
-  (on-auth-change-handler)
+  (add-auth-change-handler)
   (mount-root))
