@@ -37,11 +37,14 @@
 .block .slot:hover {
   background: transparent;
 }
-.red .slot:hover, .red .slot.fall {
+.red .slot:hover {
   background: #ec220a;  
 }
-.black .slot:hover, .black .slot.fall {
+.black .slot:hover {
   background: #332a2f;  
+}
+.block .slot:hover {
+  background: transparent;
 }
 .block .slot {
   pointer-events: none;
