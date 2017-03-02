@@ -74,7 +74,11 @@
      :path-exists?
      (fn [path]
        (secretary/locate-route path))})
-  (if-let [path (last (str/split (subs (.-search js/location) 1) #"="))]
+  (if-let [path (as->
+                  (.-search js/location) match
+                  (subs match 1)
+                  (str/split match #"=")
+                  (last match))]
     (accountant/navigate! path))
   (accountant/dispatch-current!)
   (session/put! :host host-url)
