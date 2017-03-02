@@ -1,5 +1,6 @@
 (ns five-game.core
-    (:require [reagent.core :as reagent :refer [atom]]
+    (:require [clojure.string :as str]
+              [reagent.core :as reagent :refer [atom]]
               [reagent.session :as session]
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
@@ -73,6 +74,8 @@
      :path-exists?
      (fn [path]
        (secretary/locate-route path))})
+  (if-let [path (last (str/split (subs (.-search js/location) 1) #"="))]
+    (accountant/navigate! path))
   (accountant/dispatch-current!)
   (session/put! :host host-url)
   (add-auth-change-handler)
