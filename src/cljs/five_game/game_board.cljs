@@ -1,6 +1,7 @@
 (ns five-game.game-board
     (:require [reagent.core :as r]
-              [secretary.core :as secretary :include-macros true]
+              [reagent.session :as session]
+              [accountant.core :as accountant]
               [five-game.firebase :as fb]))
 
 ; COMMON CONSTANTS
@@ -166,22 +167,23 @@
                               (fb/update-entity! [:games game-id :moves] [])
                               (fb/update-entity! [:games game-id :previous-game-turn] (toggle-turn previous-game-turn))
                               (fb/update-entity! [:games game-id :current-turn] previous-game-turn))} "Reset Game"]
-       [:button {:on-click #(secretary/dispatch! "/")} "Back to main menu"]])))
+       [:button {:on-click #(accountant/navigate! "/")} "Back to main menu"]])))
 
 (defn turn-indicator [{:keys [player2] :as players} current-turn]
-  (println "current-turn" current-turn " players" players)
   (if (nil? player2)
     [:h2 "Waiting for players to join..."]
     [:h2 (if (current-users-turn? current-turn players) "Your turn" "Your opponent's turn")]))
 
 (defn info-panel [game-id players]
-  [:div {:class "info-panel"}
-    [:div "Game ID: "
-      [:span {:class "bold"} game-id]] 
-    [:div "Player 1: "
-      [:span {:class "bold"} (:player1 players)]]
-    [:div "Player 2: "
-      [:span {:class "bold"} (:player2 players)]]])
+  (let [host (session/get :host)]
+    [:div {:class "info-panel"}
+        [:div "Game ID: "]
+        [:span {:class "bold"} game-id]
+        [:p [:a {:href (str host "/games/" game-id)} "Link to this game"]]
+        [:div "Player 1: "]
+        [:span {:class "bold"} (:player1 players)]
+        [:div "Player 2: "]
+        [:span {:class "bold"} (:player2 players)]]))
 
 (defn board-dumb [{:keys [columns current-turn players on-toss game-ended]}]
     [:div {:class "board"}
