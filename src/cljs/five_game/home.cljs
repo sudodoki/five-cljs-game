@@ -1,9 +1,10 @@
 (ns five-game.home
   (:require [five-game.firebase :as fb]
             [accountant.core :as accountant]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [five-game.core :refer [game-url]]))
 
-(defn go-to-game [game-key] (accountant/navigate! (str "/games/" game-key)))
+(defn go-to-game [game-key] (accountant/navigate! (game-url {:id game-key})))
 
 (defn create-new-game []
   (let [new-game-id (fb/create-game! "new room")]
