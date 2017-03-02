@@ -2,8 +2,7 @@
     (:require [reagent.core :as r]
               [reagent.session :as session]
               [accountant.core :as accountant]
-              [five-game.firebase :as fb]
-              [five-game.core :refer [root-url]]))
+              [five-game.firebase :as fb]))
 
 ; COMMON CONSTANTS
 (defonce red "red")
@@ -168,7 +167,7 @@
                               (fb/update-entity! [:games game-id :moves] [])
                               (fb/update-entity! [:games game-id :previous-game-turn] (toggle-turn previous-game-turn))
                               (fb/update-entity! [:games game-id :current-turn] previous-game-turn))} "Reset Game"]
-       [:button {:on-click #(accountant/navigate! (root-url))} "Back to main menu"]])))
+       [:button {:on-click #(accountant/navigate! "/")} "Back to main menu"]])))
 
 (defn turn-indicator [{:keys [player2] :as players} current-turn]
   (if (nil? player2)
