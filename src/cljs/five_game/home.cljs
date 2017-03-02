@@ -1,9 +1,9 @@
 (ns five-game.home
   (:require [five-game.firebase :as fb]
-            [secretary.core :as secretary :include-macros true]
+            [accountant.core :as accountant]
             [reagent.core :as r]))
 
-(defn go-to-game [game-key] (secretary/dispatch! (str "/games/" game-key)))
+(defn go-to-game [game-key] (accountant/navigate! (str "/games/" game-key)))
 
 (defn create-new-game []
   (let [new-game-id (fb/create-game! "new room")]

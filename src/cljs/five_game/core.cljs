@@ -10,31 +10,40 @@
 ;; -------------------------
 ;; Views
 
+(defn with-layout
+  [component]
+  [:div
+    [:h1 "Five Game"]
+    [component]
+    [:a {:href "/about"} "About"]])
 (defn home-page []
-  (home))
+  ((partial with-layout home)))
 
 (defn game-page [id]
-  (board id))
+  (partial board id))
 
 (defn login-page []
-  (login))
+  ((partial with-layout login)))
 
 (defn about-page []
-  [:div [:h2 "About five-game"]
-   [:div [:a {:href "/"} "go to the home page"]]])
+  [:div 
+    [:h2 "About five-game"]
+    [:a {:href "/"} "go to the home page"]
+    [:p "The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."]
+    [:p 
+      "This thing was written by "
+      [:a {:href "https://github.com/busatov" :target "_blank"} "@busatov"]
+      " and "
+      [:a {:href "https://github.com/sudodoki" :target "_blank"} "@sudodoki"]]])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
 
-
 ;; -------------------------
 ;; Routes
-
+; TODO: consider naming these and using helper fn instead of str'ing urls
 (secretary/defroute "/" []
   (session/put! :current-page #'home-page))
-
-(secretary/defroute "/game" []
-  (session/put! :current-page #'game-page))
 
 (secretary/defroute "/games/:id" [id]
   (session/put! :current-page (#'game-page id)))
@@ -54,9 +63,9 @@
 (defn add-auth-change-handler []
   (fb/auth-changed
     fb/auth
-    #(if-not % (secretary/dispatch! "/login"))))
+    #(if-not % (accountant/navigate! "/login"))))
 
-(defn init! []
+(defn init! [host-url]
   (accountant/configure-navigation!
     {:nav-handler
      (fn [path]
@@ -65,5 +74,6 @@
      (fn [path]
        (secretary/locate-route path))})
   (accountant/dispatch-current!)
+  (session/put! :host host-url)
   (add-auth-change-handler)
   (mount-root))
