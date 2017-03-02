@@ -6,13 +6,13 @@
 (defn on-login [email password]
   (.then
     (fb/login! email password)
-    #(accountant/navigate! (root-url))
+    #(accountant/navigate! "/")
     #(js/alert %)))    
 
 (defn on-signup [email password]
   (.then
     (fb/signup! email password)
-    #(accountant/navigate! (root-url))
+    #(accountant/navigate! "/")
     #(js/alert %)))
 
 (defn sign-in-form []
