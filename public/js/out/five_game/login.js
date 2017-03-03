@@ -7,14 +7,14 @@ goog.require('accountant.core');
 goog.require('reagent.core');
 five_game.login.on_login = (function five_game$login$on_login(email,password){
 return five_game.firebase.login_BANG_(email,password).then((function (){
-return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/");
+return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/five-cljs-game/");
 }),(function (p1__18508_SHARP_){
 return alert(p1__18508_SHARP_);
 }));
 });
 five_game.login.on_signup = (function five_game$login$on_signup(email,password){
 return five_game.firebase.signup_BANG_(email,password).then((function (){
-return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/");
+return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/five-cljs-game/");
 }),(function (p1__18509_SHARP_){
 return alert(p1__18509_SHARP_);
 }));

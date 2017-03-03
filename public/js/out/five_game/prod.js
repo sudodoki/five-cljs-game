@@ -24,4 +24,4 @@ G__18622.cljs$core$IFn$_invoke$arity$variadic = G__18622__delegate;
 return G__18622;
 })()
 ;
-five_game.core.init_BANG_("https://sudodoki.github.io/five-cljs-game");
+five_game.core.init_BANG_();

@@ -16,7 +16,7 @@
   [:div
     [:h1 "Five Game"]
     [component]
-    [:a {:href "/about"} "About"]])
+    [:a {:href "/five-cljs-game/about"} "About"]])
 (defn home-page []
   ((partial with-layout home)))
 
@@ -29,7 +29,7 @@
 (defn about-page []
   [:div 
     [:h2 "About five-game"]
-    [:a {:href "/"} "go to the home page"]
+    [:a {:href "/five-cljs-game/"} "go to the home page"]
     [:p "The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."]
     [:p 
       "This thing was written by "
@@ -42,18 +42,20 @@
 
 ;; -------------------------
 ;; Routes
+
 ; TODO: consider naming these and using helper fn instead of str'ing urls
-(secretary/defroute "/" []
+(secretary/defroute "/five-cljs-game/" []
   (session/put! :current-page #'home-page))
 
-(secretary/defroute "/games/:id" [id]
+(secretary/defroute "/five-cljs-game/games/:id" [id]
   (session/put! :current-page (#'game-page id)))
 
-(secretary/defroute "/login" []
+(secretary/defroute "/five-cljs-game/login" []
   (session/put! :current-page #'login-page))
 
-(secretary/defroute "/about" []
+(secretary/defroute "/five-cljs-game/about" []
   (session/put! :current-page #'about-page))
+
 
 ;; -------------------------
 ;; Initialize app
@@ -64,23 +66,23 @@
 (defn add-auth-change-handler []
   (fb/auth-changed
     fb/auth
-    #(if-not % (accountant/navigate! "/login"))))
+    #(if-not % (accountant/navigate! "/five-cljs-game/login"))))
 
-(defn init! [host-url]
+(defn init!
+  []
   (accountant/configure-navigation!
-    {:nav-handler
-     (fn [path]
-       (secretary/dispatch! path))
-     :path-exists?
-     (fn [path]
-       (secretary/locate-route path))})
+      {:nav-handler
+        (fn [path]
+          (secretary/dispatch! path))
+       :path-exists?
+        (fn [path]
+          (secretary/locate-route path))})
   (if-let [path (as->
-                  (.-search js/location) match
-                  (subs match 1)
-                  (str/split match #"=")
-                  (last match))]
-    (accountant/navigate! path))
+                    (.-search js/location) match
+                    (subs match 1)
+                    (str/split match #"=")
+                    (last match))]
+      (accountant/navigate! path))
   (accountant/dispatch-current!)
-  (session/put! :host host-url)
   (add-auth-change-handler)
   (mount-root))
