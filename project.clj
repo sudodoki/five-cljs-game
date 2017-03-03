@@ -92,15 +92,20 @@
 
                    :env {:dev true}}
 
+              ; https://sudodoki.github.io/five-cljs-game
+              ; https://sudodoki.github.io/five-cljs-game/cljsbuild/public/js/out
              :prod {:env {:production true}
+                    :minify-assets
+                      {:assets
+                        {"dist/public/css/site.min.css" "resources/public/css/site.css"}}
                     :cljsbuild ^:replace {:builds {:app
                                                     {:source-paths ["src/cljs" "env/prod/cljs"]
                                                       :compiler
                                                       {:main "five-game.prod"
-                                                       :asset-path "target/cljsbuild/public/js/out"
-                                                       :output-to "target/cljsbuild/public/js/app.js"
-                                                       :output-dir "target/cljsbuild/public/js/out"
-                                                       :source-map "target/cljsbuild/public/js/app.js.map"
+                                                       :asset-path "public/js/out"
+                                                       :output-to "dist/public/js/app.js"
+                                                       :output-dir "dist/public/js/out"
+                                                       :source-map "dist/public/js/app.js.map"
                                                        :language-in :ecmascript5
                                                        :language-out :ecmascript5
                                                        :optimizations :advanced}}}}}
