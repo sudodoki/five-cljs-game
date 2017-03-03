@@ -42,6 +42,7 @@
 
 ;; -------------------------
 ;; Routes
+
 ; TODO: consider naming these and using helper fn instead of str'ing urls
 (secretary/defroute "/" []
   (session/put! :current-page #'home-page))
@@ -66,21 +67,24 @@
     fb/auth
     #(if-not % (accountant/navigate! "/login"))))
 
-(defn init! [host-url]
-  (accountant/configure-navigation!
-    {:nav-handler
-     (fn [path]
-       (secretary/dispatch! path))
-     :path-exists?
-     (fn [path]
-       (secretary/locate-route path))})
-  (if-let [path (as->
-                  (.-search js/location) match
-                  (subs match 1)
-                  (str/split match #"=")
-                  (last match))]
-    (accountant/navigate! path))
-  (accountant/dispatch-current!)
-  (session/put! :host host-url)
-  (add-auth-change-handler)
-  (mount-root))
+(defn init!
+  ([prefix]
+   (secretary/set-config! :prefix prefix)
+   (init!))
+  ([]
+   (accountant/configure-navigation!
+      {:nav-handler
+        (fn [path]
+          (secretary/dispatch! path))
+       :path-exists?
+        (fn [path]
+          (secretary/locate-route path))})
+   (if-let [path (as->
+                    (.-search js/location) match
+                    (subs match 1)
+                    (str/split match #"=")
+                    (last match))]
+      (accountant/navigate! path))
+   (accountant/dispatch-current!)
+   (add-auth-change-handler)
+   (mount-root)))
