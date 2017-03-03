@@ -10,8 +10,7 @@ rlwrap lein figwheel
 
 Building for github pages
 ```
-lein with-profile prod minify-assets
-lein do clean, with-profile prod cljsbuild once app
+lein do clean, with-profile prod minify-assets, with-profile prod cljsbuild once app
 ```
 
 Serving gh-pages build locally:
@@ -24,5 +23,6 @@ bundle exec jekyll serve --watch
 
 'Deploying' to github pages
 ```
+; git push origin --delete gh-pages
 git subtree push --prefix dist origin gh-pages
 ```
