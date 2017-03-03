@@ -16,7 +16,7 @@
   [:div
     [:h1 "Five Game"]
     [component]
-    [:a {:href "/about"} "About"]])
+    [:a {:href "/five-cljs-game/about"} "About"]])
 (defn home-page []
   ((partial with-layout home)))
 
@@ -29,7 +29,7 @@
 (defn about-page []
   [:div 
     [:h2 "About five-game"]
-    [:a {:href "/"} "go to the home page"]
+    [:a {:href "/five-cljs-game/"} "go to the home page"]
     [:p "The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."]
     [:p 
       "This thing was written by "
@@ -66,7 +66,7 @@
 (defn add-auth-change-handler []
   (fb/auth-changed
     fb/auth
-    #(if-not % (accountant/navigate! "/login"))))
+    #(if-not % (accountant/navigate! "/five-cljs-game/login"))))
 
 (defn init!
   []

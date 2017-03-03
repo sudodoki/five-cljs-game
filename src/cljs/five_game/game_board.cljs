@@ -167,7 +167,7 @@
                               (fb/update-entity! [:games game-id :moves] [])
                               (fb/update-entity! [:games game-id :previous-game-turn] (toggle-turn previous-game-turn))
                               (fb/update-entity! [:games game-id :current-turn] previous-game-turn))} "Reset Game"]
-       [:button {:on-click #(accountant/navigate! "/")} "Back to main menu"]])))
+       [:button {:on-click #(accountant/navigate! "/five-cljs-game/")} "Back to main menu"]])))
 
 (defn turn-indicator [{:keys [player2] :as players} current-turn]
   (if (nil? player2)
@@ -179,7 +179,7 @@
     [:div {:class "info-panel"}
         [:div "Game ID: "]
         [:span {:class "bold"} game-id]
-        [:p [:a {:href (str host "/games/" game-id)} "Link to this game"]]
+        [:p [:a {:href (str "TODO:fixme/five-cljs-game/games/" game-id)} "Link to this game"]]
         [:div "Player 1: "]
         [:span {:class "bold"} (:player1 players)]
         [:div "Player 2: "]
