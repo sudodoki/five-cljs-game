@@ -63,21 +63,15 @@
               :output-dir "target/cljsbuild/public/js/out"
               :source-map true
               :optimizations :none
-              :pretty-print  true}}
-            }
-   }
-
+              :pretty-print  true}}}}
 
   :figwheel
   {:http-server-root "public"
    :server-port 3449
    :nrepl-port 7002
-   :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
-                      ]
+   :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
    :css-dirs ["resources/public/css"]
    :ring-handler five-game.handler/app}
-
-
 
   :profiles {:dev {:repl-options {:init-ns five-game.repl
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
@@ -88,17 +82,33 @@
                                   [figwheel-sidecar "0.5.8"]
                                   [org.clojure/tools.nrepl "0.2.12"]
                                   [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
-                                  [pjstadig/humane-test-output "0.8.1"]
-                                  ]
+                                  [pjstadig/humane-test-output "0.8.1"]]
 
                    :source-paths ["env/dev/clj"]
-                   :plugins [[lein-figwheel "0.5.8"]
-                             ]
+                   :plugins [[lein-figwheel "0.5.8"]]
 
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]
 
                    :env {:dev true}}
+
+              ; https://sudodoki.github.io/five-cljs-game
+              ; https://sudodoki.github.io/five-cljs-game/cljsbuild/public/js/out
+             :prod {:env {:production true}
+                    :minify-assets
+                      {:assets
+                        {"dist/public/css/site.min.css" "resources/public/css/site.css"}}
+                    :cljsbuild ^:replace {:builds {:app
+                                                    {:source-paths ["src/cljs" "env/prod/cljs"]
+                                                      :compiler
+                                                      {:main "five-game.prod"
+                                                       :asset-path "public/js/out"
+                                                       :output-to "dist/public/js/app.js"
+                                                       :output-dir "dist/public/js/out"
+                                                       :source-map "dist/public/js/app.js.map"
+                                                       :language-in :ecmascript5
+                                                       :language-out :ecmascript5
+                                                       :optimizations :advanced}}}}}
 
              :uberjar {:hooks [minify-assets.plugin/hooks]
                        :source-paths ["env/prod/clj"]

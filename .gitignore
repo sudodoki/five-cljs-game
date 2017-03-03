@@ -13,3 +13,5 @@ pom.xml.asc
 /.repl
 *.log
 /.env
+/_site
+/dist/_site
