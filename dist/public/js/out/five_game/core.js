@@ -12,7 +12,7 @@ goog.require('five_game.home');
 goog.require('five_game.firebase');
 goog.require('five_game.login');
 five_game.core.with_layout = (function five_game$core$with_layout(component){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$h1,"Five Game"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [component], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$href,"/about"], null),"About"], null)], null);
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$h1,"Five Game"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [component], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$href,"/five-cljs-game/about"], null),"About"], null)], null);
 });
 five_game.core.home_page = (function five_game$core$home_page(){
 return cljs.core.partial.cljs$core$IFn$_invoke$arity$2(five_game.core.with_layout,five_game.home.home).call(null);
@@ -24,7 +24,7 @@ five_game.core.login_page = (function five_game$core$login_page(){
 return cljs.core.partial.cljs$core$IFn$_invoke$arity$2(five_game.core.with_layout,five_game.login.login).call(null);
 });
 five_game.core.about_page = (function five_game$core$about_page(){
-return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$h2,"About five-game"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$href,"/"], null),"go to the home page"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$p,"The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."], null),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$p,"This thing was written by ",new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$href,"https://github.com/busatov",cljs.core.cst$kw$target,"_blank"], null),"@busatov"], null)," and ",new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$href,"https://github.com/sudodoki",cljs.core.cst$kw$target,"_blank"], null),"@sudodoki"], null)], null)], null);
+return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$h2,"About five-game"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$href,"/five-cljs-game/"], null),"go to the home page"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$p,"The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."], null),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$p,"This thing was written by ",new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$href,"https://github.com/busatov",cljs.core.cst$kw$target,"_blank"], null),"@busatov"], null)," and ",new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$href,"https://github.com/sudodoki",cljs.core.cst$kw$target,"_blank"], null),"@sudodoki"], null)], null)], null);
 });
 five_game.core.current_page = (function five_game$core$current_page(){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [reagent.session.get(cljs.core.cst$kw$current_DASH_page)], null)], null);
@@ -43,7 +43,7 @@ return null;
 }
 }
 });
-secretary.core.add_route_BANG_("/",action__18314__auto___18594);
+secretary.core.add_route_BANG_("/five-cljs-game/",action__18314__auto___18594);
 
 var action__18314__auto___18600 = (function (params__18315__auto__){
 if(cljs.core.map_QMARK_(params__18315__auto__)){
@@ -61,7 +61,7 @@ return null;
 }
 }
 });
-secretary.core.add_route_BANG_("/games/:id",action__18314__auto___18600);
+secretary.core.add_route_BANG_("/five-cljs-game/games/:id",action__18314__auto___18600);
 
 var action__18314__auto___18606 = (function (params__18315__auto__){
 if(cljs.core.map_QMARK_(params__18315__auto__)){
@@ -77,7 +77,7 @@ return null;
 }
 }
 });
-secretary.core.add_route_BANG_("/login",action__18314__auto___18606);
+secretary.core.add_route_BANG_("/five-cljs-game/login",action__18314__auto___18606);
 
 var action__18314__auto___18612 = (function (params__18315__auto__){
 if(cljs.core.map_QMARK_(params__18315__auto__)){
@@ -93,7 +93,7 @@ return null;
 }
 }
 });
-secretary.core.add_route_BANG_("/about",action__18314__auto___18612);
+secretary.core.add_route_BANG_("/five-cljs-game/about",action__18314__auto___18612);
 
 five_game.core.mount_root = (function five_game$core$mount_root(){
 return reagent.core.render.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [five_game.core.current_page], null),document.getElementById("app"));
@@ -103,7 +103,7 @@ var G__18616 = five_game.firebase.auth;
 var G__18617 = ((function (G__18616){
 return (function (p1__18613_SHARP_){
 if(cljs.core.not(p1__18613_SHARP_)){
-return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/login");
+return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1("/five-cljs-game/login");
 } else {
 return null;
 }
@@ -111,7 +111,7 @@ return null;
 ;
 return (five_game.firebase.auth_changed.cljs$core$IFn$_invoke$arity$2 ? five_game.firebase.auth_changed.cljs$core$IFn$_invoke$arity$2(G__18616,G__18617) : five_game.firebase.auth_changed.call(null,G__18616,G__18617));
 });
-five_game.core.init_BANG_ = (function five_game$core$init_BANG_(host_url){
+five_game.core.init_BANG_ = (function five_game$core$init_BANG_(){
 accountant.core.configure_navigation_BANG_(new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$nav_DASH_handler,(function (path){
 return secretary.core.dispatch_BANG_(path);
 }),cljs.core.cst$kw$path_DASH_exists_QMARK_,(function (path){
@@ -130,8 +130,6 @@ accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1(path_18619);
 }
 
 accountant.core.dispatch_current_BANG_();
-
-reagent.session.put_BANG_(cljs.core.cst$kw$host,host_url);
 
 five_game.core.add_auth_change_handler();
 

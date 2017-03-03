@@ -3,7 +3,7 @@
             [accountant.core :as accountant]
             [reagent.core :as r]))
 
-(defn go-to-game [game-key] (accountant/navigate! (str "/games/" game-key)))
+(defn go-to-game [game-key] (accountant/navigate! (str "/five-cljs-game/games/" game-key)))
 
 (defn create-new-game []
   (let [new-game-id (fb/create-game! "new room")]

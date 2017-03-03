@@ -6,7 +6,7 @@ goog.require('five_game.firebase');
 goog.require('accountant.core');
 goog.require('reagent.core');
 five_game.home.go_to_game = (function five_game$home$go_to_game(game_key){
-return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1([cljs.core.str.cljs$core$IFn$_invoke$arity$1("/games/"),cljs.core.str.cljs$core$IFn$_invoke$arity$1(game_key)].join(''));
+return accountant.core.navigate_BANG_.cljs$core$IFn$_invoke$arity$1([cljs.core.str.cljs$core$IFn$_invoke$arity$1("/five-cljs-game/games/"),cljs.core.str.cljs$core$IFn$_invoke$arity$1(game_key)].join(''));
 });
 five_game.home.create_new_game = (function five_game$home$create_new_game(){
 var new_game_id = five_game.firebase.create_game_BANG_("new room");
