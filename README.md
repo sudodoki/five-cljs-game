@@ -4,7 +4,8 @@ Prerequisites: Ruby, Java
 
 Hacking on code:
 ```
-lein figwheel
+rlwrap lein figwheel
+; be aware it will be ran on http://localhost:3449/five-cljs-game
 ```
 
 Building for github pages

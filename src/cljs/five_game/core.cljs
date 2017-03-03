@@ -44,17 +44,18 @@
 ;; Routes
 
 ; TODO: consider naming these and using helper fn instead of str'ing urls
-(secretary/defroute "/" []
+(secretary/defroute "/five-cljs-game/" []
   (session/put! :current-page #'home-page))
 
-(secretary/defroute "/games/:id" [id]
+(secretary/defroute "/five-cljs-game/games/:id" [id]
   (session/put! :current-page (#'game-page id)))
 
-(secretary/defroute "/login" []
+(secretary/defroute "/five-cljs-game/login" []
   (session/put! :current-page #'login-page))
 
-(secretary/defroute "/about" []
+(secretary/defroute "/five-cljs-game/about" []
   (session/put! :current-page #'about-page))
+
 
 ;; -------------------------
 ;; Initialize app

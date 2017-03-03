@@ -28,10 +28,10 @@
 
 
 (defroutes routes
-  (GET "/" [] (loading-page))
-  (GET "/games/:id" [] (loading-page))
-  (GET "/about" [] (loading-page))
-  (GET "/login" [] (loading-page))
+  (GET "/five-cljs-game/" [] (loading-page))
+  (GET "/five-cljs-game/games/:id" [] (loading-page))
+  (GET "/five-cljs-game/about" [] (loading-page))
+  (GET "/five-cljs-game/login" [] (loading-page))
   
   (resources "/")
   (not-found "Not Found"))
