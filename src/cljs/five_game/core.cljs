@@ -69,23 +69,20 @@
     #(if-not % (accountant/navigate! "/login"))))
 
 (defn init!
-  ([prefix]
-   (secretary/set-config! :prefix prefix)
-   (init!))
-  ([]
-   (accountant/configure-navigation!
+  []
+  (accountant/configure-navigation!
       {:nav-handler
         (fn [path]
           (secretary/dispatch! path))
        :path-exists?
         (fn [path]
           (secretary/locate-route path))})
-   (if-let [path (as->
+  (if-let [path (as->
                     (.-search js/location) match
                     (subs match 1)
                     (str/split match #"=")
                     (last match))]
       (accountant/navigate! path))
-   (accountant/dispatch-current!)
-   (add-auth-change-handler)
-   (mount-root)))
+  (accountant/dispatch-current!)
+  (add-auth-change-handler)
+  (mount-root))
