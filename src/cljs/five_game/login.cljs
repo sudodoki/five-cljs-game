@@ -24,9 +24,9 @@
                           (.preventDefault e)
                           (on-login @email @password)
                           (.reset (.-target e)))}
-      [:input {:type "text" :on-change #(reset! email (-> % .-target .-value))}]
-      [:input {:type "text" :on-change #(reset! password (-> % .-target .-value))}]
-      [:button {:type "submit"} "Login"]]]))
+      [:input {:type "text" :placeholder "Email" :on-change #(reset! email (-> % .-target .-value))}]
+      [:input {:type "password" :placeholder "Password" :on-change #(reset! password (-> % .-target .-value))}]
+      [:button.btn.-with-margin {:type "submit"} "Login"]]]))
   
 (defn sign-up-form []
   (let [email (r/atom "")
@@ -37,12 +37,13 @@
                           (.preventDefault e)
                           (on-signup @email @password)
                           (.reset (.-target e)))}
-      [:input {:type "text" :on-change #(reset! email (-> % .-target .-value))}]
-      [:input {:type "text" :on-change #(reset! password (-> % .-target .-value))}]
-      [:button {:type "submit"} "Login"]]]))
+      [:input {:type "text" :placeholder "Email" :on-change #(reset! email (-> % .-target .-value))}]
+      [:input {:type "password" :placeholder "Password" :on-change #(reset! password (-> % .-target .-value))}]
+      [:button.btn.-with-margin {:type "submit"} "Register"]]]))
 
 (defn login []
   [:div
     (sign-in-form)
-    (sign-up-form)]) 
+    (sign-up-form)
+    [:a.login-about-btn {:href "/five-cljs-game/about"} "About"]]) 
  
