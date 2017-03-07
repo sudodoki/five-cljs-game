@@ -14,28 +14,38 @@
 (defn with-layout
   [component]
   [:div
-    [:h1 "Five Game"]
-    [component]
-    [:a {:href "/five-cljs-game/about"} "About"]])
+    [:header.header
+      [:a.logo {:href "/five-cljs-game/"} "Five Game"]
+      [:div.buttons
+        [:a {:href "/five-cljs-game/about"} "About"]
+        (when (fb/get-current-user)
+          [:a.logout-btn {:on-click (fn [] (fb/logout!))} "Logout"])]]
+    [:div.container
+      [component]]])
+    
 (defn home-page []
   ((partial with-layout home)))
 
 (defn game-page [id]
-  (partial board id))
+  (partial with-layout (partial board id)))
 
 (defn login-page []
-  ((partial with-layout login)))
+  [:div.container
+    [login]])
 
 (defn about-page []
-  [:div 
-    [:h2 "About five-game"]
-    [:a {:href "/five-cljs-game/"} "go to the home page"]
-    [:p "The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."]
-    [:p 
-      "This thing was written by "
-      [:a {:href "https://github.com/busatov" :target "_blank"} "@busatov"]
-      " and "
-      [:a {:href "https://github.com/sudodoki" :target "_blank"} "@sudodoki"]]])
+  [:div.container
+    [:div
+      [:h2 "About five-game"]
+      (if (fb/get-current-user)
+        [:a {:href "/five-cljs-game/"} "go to the home page"]
+        [:a {:href "/five-cljs-game/login"} "go to the login page"])
+      [:p "The goal is to get five coins of same color in a row while preventing your opponent from getting five in a row of his own. Horizontal, vertical and diagonal rows are all allowed."]
+      [:p 
+        "This thing was written by "
+        [:a {:href "https://github.com/busatov" :target "_blank"} "@busatov"]
+        " and "
+        [:a {:href "https://github.com/sudodoki" :target "_blank"} "@sudodoki"]]]])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
