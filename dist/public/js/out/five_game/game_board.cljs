@@ -174,12 +174,13 @@
     [:h2 "Waiting for players to join..."]
     [:h2 (if (current-users-turn? current-turn players) "Your turn" "Your opponent's turn")]))
 
+(def base-url (aget js/location "origin"))
 (defn info-panel [game-id players]
   (let [host (session/get :host)]
     [:div {:class "info-panel"}
         [:div "Game ID: "]
         [:span {:class "bold"} game-id]
-        [:p [:a {:href (str "TODO:fixme/five-cljs-game/games/" game-id)} "Link to this game"]]
+        [:p [:a {:href (str base-url "/five-cljs-game/games/" game-id)} "Link to this game"]]
         [:div "Player 1: "]
         [:span {:class "bold"} (:player1 players)]
         [:div "Player 2: "]

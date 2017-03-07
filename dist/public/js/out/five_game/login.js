@@ -30,19 +30,19 @@ five_game.login.on_login((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.c
 
 return e.target.reset();
 });})(email,password))
-], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$on_DASH_change,((function (email,password){
+], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 3, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$placeholder,"Email",cljs.core.cst$kw$on_DASH_change,((function (email,password){
 return (function (p1__18510_SHARP_){
 var G__18516 = email;
 var G__18517 = p1__18510_SHARP_.target.value;
 return (cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2 ? cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2(G__18516,G__18517) : cljs.core.reset_BANG_.call(null,G__18516,G__18517));
 });})(email,password))
-], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$on_DASH_change,((function (email,password){
+], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 3, [cljs.core.cst$kw$type,"password",cljs.core.cst$kw$placeholder,"Password",cljs.core.cst$kw$on_DASH_change,((function (email,password){
 return (function (p1__18511_SHARP_){
 var G__18518 = password;
 var G__18519 = p1__18511_SHARP_.target.value;
 return (cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2 ? cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2(G__18518,G__18519) : cljs.core.reset_BANG_.call(null,G__18518,G__18519));
 });})(email,password))
-], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$button,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$type,"submit"], null),"Login"], null)], null)], null);
+], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$button$btn$_DASH_with_DASH_margin,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$type,"submit"], null),"Login"], null)], null)], null);
 });
 five_game.login.sign_up_form = (function five_game$login$sign_up_form(){
 var email = reagent.core.atom.cljs$core$IFn$_invoke$arity$1("");
@@ -55,20 +55,20 @@ five_game.login.on_signup((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.
 
 return e.target.reset();
 });})(email,password))
-], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$on_DASH_change,((function (email,password){
+], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 3, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$placeholder,"Email",cljs.core.cst$kw$on_DASH_change,((function (email,password){
 return (function (p1__18520_SHARP_){
 var G__18526 = email;
 var G__18527 = p1__18520_SHARP_.target.value;
 return (cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2 ? cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2(G__18526,G__18527) : cljs.core.reset_BANG_.call(null,G__18526,G__18527));
 });})(email,password))
-], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 2, [cljs.core.cst$kw$type,"text",cljs.core.cst$kw$on_DASH_change,((function (email,password){
+], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$input,new cljs.core.PersistentArrayMap(null, 3, [cljs.core.cst$kw$type,"password",cljs.core.cst$kw$placeholder,"Password",cljs.core.cst$kw$on_DASH_change,((function (email,password){
 return (function (p1__18521_SHARP_){
 var G__18528 = password;
 var G__18529 = p1__18521_SHARP_.target.value;
 return (cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2 ? cljs.core.reset_BANG_.cljs$core$IFn$_invoke$arity$2(G__18528,G__18529) : cljs.core.reset_BANG_.call(null,G__18528,G__18529));
 });})(email,password))
-], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$button,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$type,"submit"], null),"Login"], null)], null)], null);
+], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$button$btn$_DASH_with_DASH_margin,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$type,"submit"], null),"Register"], null)], null)], null);
 });
 five_game.login.login = (function five_game$login$login(){
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,five_game.login.sign_in_form(),five_game.login.sign_up_form()], null);
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$div,five_game.login.sign_in_form(),five_game.login.sign_up_form(),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.cst$kw$a$login_DASH_about_DASH_btn,new cljs.core.PersistentArrayMap(null, 1, [cljs.core.cst$kw$href,"/five-cljs-game/about"], null),"About"], null)], null);
 });

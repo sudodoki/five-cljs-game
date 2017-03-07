@@ -18,13 +18,11 @@
                           (.preventDefault e)
                           (on-game-join @game-key)
                           (.reset (.-target e)))}
-      [:input {:type "text" :on-change #(reset! game-key (-> % .-target .-value))}]
-      [:button {:type "submit"} "Join"]]))
+      [:input {:type "text" :placeholder "Enter game ID" :on-change #(reset! game-key (-> % .-target .-value))}]
+      [:button.btn {:type "submit"} "Join"]]))
 
 (defn home []
-  [:div
-   [:h1 {:class "-text-center"} "Five Game"]
-   [:div {:class "-text-center"}
-     [:button {:class "button" :on-click create-new-game} "Create New Game"]
-     [:h4 "or"]
-     (new-game-form)]]) 
+  [:div.-text-center
+    [:button.btn {:on-click create-new-game} "Create New Game"]
+    [:h4 "or"]
+    (new-game-form)]) 
